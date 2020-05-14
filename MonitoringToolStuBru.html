@@ -1,0 +1,62 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>STUBRU cloud switcher test</title>
+
+    <script src="dash.all.min.js"></script>
+
+    <style>
+        video {
+            width: 1280px;
+            height: 720px;
+        }
+    </style>
+    </head>
+    <body>
+        <div class="code">
+            <video muted autoplay preload="none" controls="true" id="video">
+                <source src="http://184.105.189.161/stream/stream.mpd" type="application/dash+xml"/>
+            </video>
+        </div>
+
+        <div class="buttons">
+			<button type="button" id="btnStudio">STUDIO</button>
+			<button type="button" id="btnLive">LIVE</button>
+			<button type="button" id="btnScreensaver">SCREENSAVER</button>
+			<button type="button" id="btnUnmuteAudio">UNMUTE AUDIO</button>
+        </div>
+
+
+<script>
+
+var btnStudio = document.getElementById("btnStudio");
+var btnLive = document.getElementById("btnLive");
+var btnScreensaver = document.getElementById("btnScreensaver");
+var socket;
+
+socket = new WebSocket("ws://184.105.189.161:12001");
+
+btnUnmuteAudio.addEventListener("click", function ()  {
+		video.muted = false;
+	});
+
+
+btnStudio.onclick = function ( ) {
+  socket.send("Function=CutDirect&Input=1");
+}
+btnLive.onclick = function ( ) {
+  socket.send("Function=CutDirect&Input=2");
+}
+btnScreensaver.onclick = function ( ) {
+  socket.send("Function=CutDirect&Input=3");
+}
+
+
+
+</script>
+
+
+    </body>
+</html>
